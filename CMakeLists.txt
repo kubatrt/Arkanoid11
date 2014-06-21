@@ -1,14 +1,13 @@
 # -DSFML_ROOT="d:/lib/SFML-2.1/"
+set(SFML_ROOT "d:/lib/SFML-2.1/")
 
 cmake_minimum_required(VERSION 2.8)
 project(Arkanoid11)
 
-# Enable debug symbols by default
+# Enable -DCMAKE_BUILD_TYPE=Debug symbol by default
 if(CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE Debug)
 endif()
-# -D CMAKE_BUILD_TYPE=Release
-
 
 # Compilers and CMake switches
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -28,14 +27,17 @@ configure_file(
 # Source and headers
 aux_source_directory(. SRC_LIST)
 include_directories(${PROJECT_BINARY_DIR})
-file(GLOB_RECURSE HEADERS *.hpp *.h)
 
-if(NOT HEADERS)
+file(GLOB_RECURSE INC_LIST . *.hpp . *.h)
+if(NOT INC_LIST )
   message(FATAL_ERROR "Headers not found!")
+else()
+  #set(PROJECT_INCLUDES ${INC_LIST})
 endif()
 
 # Define executable, before target_link_libraries
 add_executable(${PROJECT_NAME} ${SRC_LIST})
+
 
 # SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
@@ -46,8 +48,10 @@ if(SFML_FOUND)
   target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})
 endif()
 
+
 # Install target
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+
 
 # Cpack packing
 include(InstallRequiredSystemLibraries)
