@@ -1,0 +1,9 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define Arkanoid11_VERSION_MAJOR @Arkanoid11_VERSION_MAJOR@
+#define Arkanoid11_VERSION_MINOR @Arkanoid11_VERSION_MINOR@
+
+
+
+#endif // CONFIG_H
