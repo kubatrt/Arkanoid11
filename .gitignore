@@ -219,3 +219,12 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Buils artefacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CPackConfig.cmake
+CPackSourceConfig.cmake
+Arkanoid11
