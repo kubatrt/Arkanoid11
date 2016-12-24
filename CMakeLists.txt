@@ -1,7 +1,6 @@
 # -DSFML_ROOT="d:/lib/SFML-2.1/"
-set(SFML_ROOT "d:/lib/SFML-2.1/")
-
 cmake_minimum_required(VERSION 2.8)
+
 project(Arkanoid11)
 
 # Enable -DCMAKE_BUILD_TYPE=Debug symbol by default
@@ -10,7 +9,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
 endif()
 
 # Compilers and CMake switches
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE OFF) 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -34,6 +33,7 @@ if(NOT INC_LIST )
 else()
   #set(PROJECT_INCLUDES ${INC_LIST})
 endif()
+
 
 # Define executable, before target_link_libraries
 add_executable(${PROJECT_NAME} ${SRC_LIST})
