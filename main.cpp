@@ -5,7 +5,7 @@
 #include "structures.hpp"
 #include "collision.hpp"
 
-sf::Color brickColors[] = {sf::Color::Red, sf::Color::Green, sf::Color::Blue};
+sf::Color brickColors[] {sf::Color::Red, sf::Color::Green, sf::Color::Blue, sf::Color::Yellow};
 
 int main()
 {
@@ -48,14 +48,27 @@ int main()
 
     for(auto& brick : bricks) testCollision(brick, ball);
 
+
     // use STL algorithm to remove all destroyed bricks
     bricks.erase(std::remove_if(std::begin(bricks), std::end(bricks),
                  [](const Brick& mBrick) { return mBrick.destroyed; }),
                  std::end(bricks));
 
+    
+    bool won = true;
+    for(auto& brick : bricks)
+    {
+        if(brick.destroyed == false)
+           won = false;
+    }
+    if(won)
+        window.close();
+
+    // Draw
     window.draw(paddle.shape);
     window.draw(ball.shape);
-    for(auto& brick : bricks) window.draw(brick.shape);
+    for(auto& brick : bricks)
+        window.draw(brick.shape);
 
     window.display();
   }
