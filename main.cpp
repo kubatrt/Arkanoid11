@@ -7,12 +7,13 @@
 
 sf::Color brickColors[] {sf::Color::Red, sf::Color::Green, sf::Color::Blue, sf::Color::Yellow};
 
+
 int main()
 {
   std::cout << appName << " Version " << Arkanoid11_VERSION_MAJOR << "." << Arkanoid11_VERSION_MINOR << std::endl;
 
 
-  // game objects
+  // setup game objects
   Ball ball{windowWidth / 2, windowHeight / 2};
   Paddle paddle{windowWidth / 2, windowHeight - paddleHeight * 2};
   std::vector<Brick> bricks;
@@ -23,6 +24,7 @@ int main()
       bricks.emplace_back( (ix + 1) * (brickWidth + 4) + 20,
                            (iy + 1) * (brickHeight + 4),
                            brickColors[iy / 2]);
+
 
   sf::VideoMode vmode(windowWidth, windowHeight);
   sf::RenderWindow window(vmode, appName);
@@ -42,25 +44,23 @@ int main()
           window.close();
     }
 
+    // update
     ball.update();
     paddle.update();
     testCollision(paddle, ball);
 
-    for(auto& brick : bricks) testCollision(brick, ball);
+    for(auto& brick : bricks) 
+        testCollision(brick, ball);
 
-
-    // use STL algorithm to remove all destroyed bricks
+    // remove all destroyed bricks
     bricks.erase(std::remove_if(std::begin(bricks), std::end(bricks),
-                 [](const Brick& mBrick) { return mBrick.destroyed; }),
+                 [](const Brick& brick) { return brick.destroyed; }),
                  std::end(bricks));
 
-    
-    bool won = true;
-    for(auto& brick : bricks)
-    {
-        if(brick.destroyed == false)
-           won = false;
-    }
+    // winning conditions
+    bool won = std::all_of(std::begin(bricks), std::end(bricks), 
+            [](const Brick& brick) { return brick.destroyed; });
+
     if(won)
         window.close();
 

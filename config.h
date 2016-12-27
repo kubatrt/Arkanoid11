@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 #define Arkanoid11_VERSION_MAJOR 0
-#define Arkanoid11_VERSION_MINOR 1
+#define Arkanoid11_VERSION_MINOR 2
 
 
 
